@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>洛文小站</title>
+    <link>http://tuuna.top/</link>
+    <description>Recent content on 洛文小站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 02 Dec 2020 20:16:50 +0800</lastBuildDate><atom:link href="http://tuuna.top/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Test</title>
+      <link>http://tuuna.top/posts/test/test/</link>
+      <pubDate>Wed, 02 Dec 2020 20:16:50 +0800</pubDate>
+      
+      <guid>http://tuuna.top/posts/test/test/</guid>
+      <description>测试一下</description>
+    </item>
+    
+    <item>
+      <title>Seata分布式事务框架的流程解析</title>
+      <link>http://tuuna.top/2020/04/21/seata/</link>
+      <pubDate>Tue, 21 Apr 2020 03:55:57 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2020/04/21/seata/</guid>
+      <description>XID：全局事务的唯一标识，由 ip:port:sequence 组成； Transaction Coordinator (TC)：事务协调器，维护全局事务的运行状态，负责协调并驱动全局事务的提交或回滚； Transaction Manager (TM )：控制全局事务的边界，负责开启一个全局事务，并最终发起全局提交或全局回滚的决议； Resource Manager (RM)：控制分支事务，负责分支注册、状态汇报，并接收事务协调器的指令，驱动分支（本地）事务的提交和回滚；  业务逻辑是经典的下订单、扣余额、减库存流程。 根据模块划分为三个独立的服务，且分别连接对应的数据库：
+ 订单：order-server 账户：account-server 库存：storage-server 业务：business-server  项目结构如下图
+正常业务:   business发起购买请求
+  storage扣减库存
+  order创建订单
+  account扣减余额
+  异常业务： 扣减余额异常
+正常流程下 2、3、4 步的数据正常更新全局 commit，异常流程下的数据则由于第 4 步的异常报错全局回滚。
+使用流程及解析
+ 首先创建相应的数据库与数据表     库名 含有的表 作用     db_account account_tbl undo_log 存储用户信息   db_order order_tbl undo_log 订单信息   db_storage storage_tbl undo_log 库存信息    注:上面的每一个库可以存储与不同的机器上面。需要在不同的服务里面配置即可</description>
+    </item>
+    
+    <item>
+      <title>2019年度总结</title>
+      <link>http://tuuna.top/2019/12/31/2019_summary/</link>
+      <pubDate>Tue, 31 Dec 2019 07:32:10 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2019/12/31/2019_summary/</guid>
+      <description>2019年度总结</description>
+    </item>
+    
+    <item>
+      <title>2e数据量下MongoDB查询性能测试</title>
+      <link>http://tuuna.top/2019/09/29/mongo_test/</link>
+      <pubDate>Sun, 29 Sep 2019 11:16:31 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2019/09/29/mongo_test/</guid>
+      <description>硬件环境：三台4核CPU、32G内存、100G磁盘 测试数据量: 1.96e
+Order表结构如下：
+{ &amp;quot;_id&amp;quot;: ObjectId, &amp;quot;uid&amp;quot;: &amp;quot;uid186642&amp;quot;, //有索引 &amp;quot;name&amp;quot;: &amp;quot;商品214&amp;quot;, &amp;quot;money&amp;quot;: 899 }    语句类型 查询语句 有无索引 测试结果(时间，返回数据量)     等值查询 db.order.find({uid:“uid150902”}) 有 7ms, 949条   等值查询 db.order.find({money:999}) 无 28.57s, 1929条   In查询 db.order.find({uid: {$in: [“uid100000”, “uid123456”, “uid089345”]}}) 有 19ms, 2860条   In查询 db.order.find({money: {$in: [300, 450, 999]}}) 无 30.37s, 5871条   范围查询 db.order.find({uid:{$gt:“uid198800”}}) 有 4.59s，117w条   范围查询 db.order.find({money:{$gt:990}}) 无 29.</description>
+    </item>
+    
+    <item>
+      <title>Hbase &#43; PostgreSQL测试</title>
+      <link>http://tuuna.top/2019/09/29/hbase_postgresql_test/</link>
+      <pubDate>Sun, 29 Sep 2019 11:10:32 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2019/09/29/hbase_postgresql_test/</guid>
+      <description>文章目录  Hbase + PostgreSQL测试  基本信息 测试方法  HBASE PG   测试图例    基本信息 Hbase与PG测试使用YCSB压力测试工具
+采用21w行数据+21w操作数来最大化模拟20G数据场景
+测试方法 HBASE   首先下载YCSB，解压
+  接下来创建测试数据库
+hbase shell命令打开shell命令行
+hbase(main):001:0&amp;gt; n_splits = 20 # HBase recommends (10 * number of regionservers) hbase(main):002:0&amp;gt; create &#39;usertable&#39;, &#39;cf&#39;, {SPLITS =&amp;gt; (1..n_splits).map {|i| &amp;quot;user#{1000+i*(9999-1000)/n_splits}&amp;quot;}}   把hbase的conf目录下的|$HBASE_HOME/conf/hbase-site.xml(比如我本机是/usr/local/hbase/conf/hbase-site.xml)复制到我们下载的YCSB中的hbase14下的conf文件夹中
+  接下来装载数据
+$ ./bin/ycsb load hbase14 -P workloads/workloada -p table=usertable -p columnfamily=cf -p recordcount=210000 -p operationcount=210000 -p measurementtype=hdrhistogram -p hdrhistogram.</description>
+    </item>
+    
+    <item>
+      <title>DB与FS比较</title>
+      <link>http://tuuna.top/2019/09/26/db_fs_compare/</link>
+      <pubDate>Thu, 26 Sep 2019 09:15:52 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2019/09/26/db_fs_compare/</guid>
+      <description>文章目录  数据库以及FS比较  HDFS、Ceph差异对比  HDFS设计目标 HDFS文件目录 Ceph设计目标 Ceph数据结构 HDFS文件导出 Ceph文件导出 暂时的结论 其它FS选型 其它思路 总结   Hbase、Cassendra、TiDB适用场景以及相关生态  Hbase  基本简介 特性 优势 缺点   Cassendra  基本简介 重要特性 优势 劣势   TiDB  基本简介 特性 使用场景 生态     已存在HDFS中的解析成结果数据  导入到 SQL 从 Sqoop 中导出      HDFS、Ceph差异对比 HDFS设计目标   存储非常大的文件：这里非常大指的是几百M、G、或者TB级别。实际应用中已有很多集群存储的数据达到PB级别。根据Hadoop官网，Yahoo！的Hadoop集群约有10万颗CPU，运行在4万个机器节点上。更多世界上的Hadoop集群使用情况，参考Hadoop官网.
+  采用流式的数据访问方式: HDFS基于这样的一个假设：最有效的数据处理模式是一次写入、多次读取数据集经常从数据源生成或者拷贝一次，然后在其上做很多分析工作 分析工作经常读取其中的大部分数据，即使不是全部。 因此读取整个数据集所需时间比读取第一条记录的延时更重要。
+  运行于商业硬件上: Hadoop不需要特别贵的、reliable的机器，可运行于普通商用机器（可以从多家供应商采购） 商用机器不代表低端机器在集群中（尤其是大的集群），节点失败率是比较高的HDFS的目标是确保集群在节点失败的时候不会让用户感觉到明显的中断。</description>
+    </item>
+    
+    <item>
+      <title>Flume&#43;Kafka&#43;Spark环境搭建</title>
+      <link>http://tuuna.top/2019/09/26/flume_kafka_spark_building/</link>
+      <pubDate>Thu, 26 Sep 2019 08:52:30 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2019/09/26/flume_kafka_spark_building/</guid>
+      <description>文章目录    单机版环境搭建及相关DEMO  Flume  Flume基本介绍与架构 Flume安装部署 案例实操   Kafka  环境搭建 Kafka控制台的一些命令操作 Java API控制Kafka Flume+Kafka配合   Spark  Spark 简介 Spark环境搭建 在Spark Shell 中运行代码 Scala编写wordCount 在Spark-Shell中执行词频统计 词频统计 编写独立应用程序执行词频统计   Flume_Kafka_SparkStreaming实现词频统计  准备工作     分布式环境搭建及相关DEMO  Flume Kafka Spark       本文档主要讲述了flume+kafka+spark的单机分布式搭建，由浅入深，介绍了常见大数据流处理流程
+ 单机版环境搭建及相关DEMO Flume Flume基本介绍与架构 Flume是Cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统。Flume基于流式架构，灵活简单。
+Flume出生日记
+有很多的服务和系统
+ network devices operating system web servers Applications  这些系统都会产生很多的日志，那么把这些日志拿出来，用来分析时非常有用的。</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu上U盘只可读问题解决方案</title>
+      <link>http://tuuna.top/2019/09/26/ubuntu_flashdisk_solution/</link>
+      <pubDate>Thu, 26 Sep 2019 08:21:04 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2019/09/26/ubuntu_flashdisk_solution/</guid>
+      <description>笔者今天上机的时候，同学借我U盘在Win7下拷贝东西，但是发现有一个文件夹是空的，笔者就再插到正在使用的Ubuntu16.10的机器上，发现文件全锁定了，只能读，并且用超级用户并不能更改权限。
+ 具体解决方法如下  查看U盘的挂载点   $ df -h 可以发现文件系统的路径为/dev/sdd4
+ 然后使用命令即可   $ mount -o remount,rw /dev/sdd4 # /dev/sdd4需要替换成自己看到的文件系统路径  重新挂载完毕，问题解决  问题总结 Linux大法保平安</description>
+    </item>
+    
+    <item>
+      <title>2018年总结</title>
+      <link>http://tuuna.top/2019/01/10/2018%E5%B9%B4_summary/</link>
+      <pubDate>Thu, 10 Jan 2019 09:33:34 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2019/01/10/2018%E5%B9%B4_summary/</guid>
+      <description>2018年吧。
+可能真的是低开高走，然后低走低走低走。
+好像得到了一些，但是又好像失去了更多。
+混进了电子科大，放弃了工作，开始了研究生生活。
+然后。
+我迷茫了，我发现，这并不是我想要的。
+我不喜欢为了别人活着。
+我不喜欢漫无目的。
+我不喜欢失去了初心。
+我突然不像大学一样。
+对未来的方向充满了希望。
+一个劲儿的往那个方向走去。
+我变得唯唯诺诺。
+失去了过去对于计算机的热情。
+只有充斥着的繁琐的文字，
+以及周围人的提醒。
+越来越自卑。
+越来越不相信自己。
+未来。
+对于未来。
+我没有了信心。
+这世上平凡人太多了。
+我真的只是那个平凡得不能再平凡的人了。
+我感觉很累。
+这才是生活吧。
+每个人有每个人的不容易。
+每个人有每个人的烦心。
+勤奋，努力，可以改变命运。
+也许吧。
+但是。这是生活完全的诠释吗。
+我不知道。
+现在的我，
+只有左冲右撞。
+一直停留啊
+停留啊
+在原地
+走不动吗？
+我到底往哪走。
+我不知道。
+日子过得太快了。
+一年又一年。
+我不能再任性。
+不能不顺心就辞职不干。
+不能让父母太过担心。
+不能太消极影响身边的人。
+我应该跟上身边人的脚步，
+找到属于我的路。
+但是什么时候？
+我不知道。
+2019年。
+低调做人
+沉下去。
+我唯一的愿望。</description>
+    </item>
+    
+    <item>
+      <title>位运算相关操作整理</title>
+      <link>http://tuuna.top/2018/07/19/bit_calculation/</link>
+      <pubDate>Thu, 19 Jul 2018 01:26:52 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2018/07/19/bit_calculation/</guid>
+      <description>定义  定义：其实说白了，位运算就是直接对整数在内存中的二进制位进行操作 特点：位运算直接对内存数据进行操作，不需要转成十进制，速度很快  基本位运算符  and( &amp;amp; ) : 通常用于二进制位操作，如一个数&amp;amp;1的结果就是取二进制的最末尾，可以用来判断整数奇偶 or( | ) : 通常用于二进制定位上的无条件赋值，例如一个数or1的结果就是把二进制最末位强行变成1,若要变成0则减1就可以了，实际意义就是把这个数强行变成最接近的偶数 xor( ^ ) : 通常用于对二进制的特定一位进行取反，可以对两个数进行交换 not( ~ ) : 取反，注意的是整数类型有没有符号，如果是无符号整数，那么得到的值为其与上界的差 left shift( &amp;laquo; ) : 左移，在二进制数每添一位0就相当于乘2，因此每左移一位就相当于乘2；并且在常量的定义上，比如可以通过1 &amp;lt;&amp;lt; 16 来表示65535  对应与集合运算则是交集、并集、差集和补集，假设集合 A 是 {0, 3, 5, 6}，集合 B 是 {0, 2, 4, 6}，全集为 {0, 1, 2, 3, 4, 5, 6, 7}那么：
+ &amp;amp; 交集 Intersection {0, 6} | 并集 Union {0, 2, 3, 4, 5, 6} ^ 差集 Symmetric difference {2, 3, 4, 5} ~ 补集 Complement {1, 3, 5, 7}  位 运算符简单应用  经典题型：做数独时我们需要27个Hash表来统计每一行、每一列和每一个小九宫格里已经有哪些数了。此时，我们可以用27个小于2^9的整数进行记录。例如，一个只填了2和5的小九宫格就用数字18表示（二进制为000010010），而某一行的状态为511则表示这一行已经填满。需要改变状态时我们不需要把这个数转成二进制修改后再转回去，而是直接进行位操作。在搜索时，把状态表示成整数可以更好地进行判重等操作。</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu18.04 MySQL 5.7不再弹出root密码设置</title>
+      <link>http://tuuna.top/2018/07/11/ubuntu18-04-mysql-5-7-password/</link>
+      <pubDate>Wed, 11 Jul 2018 09:28:11 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2018/07/11/ubuntu18-04-mysql-5-7-password/</guid>
+      <description> 于这个问题有两种解决方式，第一种是直接下载8.0版本的MySQL，不通过命令行的apt下载，第二种方法是本文研究的，针对已经通过apt安装的用户
+ 安装MySQL 5.7 $ sudo apt-get install mysql-server mysql-client libmysqlclient-dev 安装完成之后会发现没有弹窗出来让用户设置密码，我们用下面的方式来解决
+解决方法  先查看自动生成的用户名以及密码，可以看到这里的user=###和password=***  $ sudo cat /etc/mysql/debian.cnf  把看到的user和password记录下来，并且输入如下的命令  $ mysql -u### -p*** #这里的###和***由记录的值替换，就可以进入到mysql中  然后输入以下的命令来生成一个root用户  mysql&amp;gt; update mysql.user set authentication_string=PASSWORD(&amp;#34;root&amp;#34;) where User=&amp;#34;root&amp;#34;; # 生成一个用户，但是会出现一个warning mysql&amp;gt; update mysql.user set plugin=”mysql_native_password”; # 解决警告 mysql&amp;gt; flush privileges; #更新所有权限 mysql&amp;gt; exit; #退出  最后重启一下MySQL即可  $ service mysql restart </description>
+    </item>
+    
+    <item>
+      <title>Golang 实现 B-Tree与B&#43;Tree</title>
+      <link>http://tuuna.top/2018/07/11/golang_b&#43;_b_tree/</link>
+      <pubDate>Wed, 11 Jul 2018 08:13:45 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2018/07/11/golang_b&#43;_b_tree/</guid>
+      <description>B-Tree与B+Tree基本概念  为什么在数据库中不使用时间复杂度为O(logN)的二叉查找树，是因为磁盘IO的问题，数据库索引是放在磁盘上的，数据量特别大时，索引也变得很大，不可能把所有的索引都放到内存当中，只能逐一加载每一个磁盘页。而在最坏情况下，磁盘IO次数对应着索引树的高度，所以为了减少磁盘IO次数，需要把树的高度减小。
+ B-Tree B-Tree性质 阶为M的B-树拥有以下的性质：
+ 树的根或者是一片树叶，或者其孩子数在2和M之间 除根以外，所有的非叶节点的孩子数在 ⌈M/2⌉和M之间 所有的叶节点都在相同的深度上 每个节点存放至少M/2 - 1(上取整)和至多M - 1 个关键字(至少2个关键字) 非叶节点的关键字个数=孩子指针个数 - 1 节点内关键字有序  B-Tree实现 查看github
+B+Tree B+树与B树的差别在于：
+ 非叶节点的孩子指针与关键字个数相同 所有关键字都在叶子节点的链表中出现(稠密索引)，并且链表中的关键字是有序的 为所有叶子节点增加一个链指针 关键字都出现在叶子节点 不可能在非叶子节点命中 非叶子节点相当于叶子节点的索引(稀疏索引)，叶子节点相当于是存储关键字的数据层  B+Tree实现 查看github</description>
+    </item>
+    
+    <item>
+      <title>记录一个Ubuntu16.10安装ElasticSearch的问题</title>
+      <link>http://tuuna.top/2017/04/21/ubuntu_elastic/</link>
+      <pubDate>Fri, 21 Apr 2017 07:44:10 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2017/04/21/ubuntu_elastic/</guid>
+      <description>其实这个问题没有真正解决，只是迫不得已的方法。
+ 问题描述   首先是笔者的系统信息
+$ uname -a Linux XPS 4.8.0-46-generic #49-Ubuntu SMP Fri Mar 31 13:57:14 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux   接下来下载apt自带的elasticsearch
+$ sudo apt install elasticsearch   下载非常的顺利，但是访问http://localhost:9200是拒绝访问的
+  接下来我们看看这时候elasticsearch的服务状态，大致是这样的
+  elasticsearch.service - LSB: Starts elasticsearch Loaded: loaded (/etc/init.d/elasticsearch; bad; vendor preset: enabled) Active: active (exited) since Thu 2017-04-21 12:03:54 EDT; 32min ago Docs: man:systemd-sysv-generator(8) Process: 1192 ExecStart=/etc/init.d/elasticsearch start (code=exited, status=0 Tasks: 0 (limit: 512) Apr 21 12:03:54 rubix2 systemd[1]: Starting LSB: Starts elasticsearch… Apr 21 12:03:54 rubix2 systemd[1]: Started LSB: Starts elasticsearch.</description>
+    </item>
+    
+    <item>
+      <title>ssh:不能解析github.com的主机名</title>
+      <link>http://tuuna.top/2017/03/19/ssh_hostname/</link>
+      <pubDate>Sun, 19 Mar 2017 13:25:34 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2017/03/19/ssh_hostname/</guid>
+      <description>ssh: Could not resolve hostname ssh.github.com: Name or service not known fatal: Could not read from remote repository. Please make sure you have the correct access rights and the repository exists. 当笔者像平常一样使用着$git push origin master时，突然报错了，然后笔者又测试了一下 git clone 命令，仍然报错。然后记录一下解决方法
+ 打开/etc/resolv.conf 添加两行nameserver  nameserver 8.8.8.8 nameserver 8.8.4.4 ps: 这里如果直接修改/etc/resolv.conf重启之后会失效。解决方法
+但是作者使用下的Ubuntu16.10使用上面的方法是有问题的，可能是因为我自己做了一些不知道什么的事
+ 最终的解决方案是：
+ 打开/etc/NetworkManager/NetworkManager.conf 注释(加上#)或删除dns=dnsmasq这一行 sudo service NetworkManager restart  完美解决</description>
+    </item>
+    
+    <item>
+      <title>Laravel 手动分页实现详解</title>
+      <link>http://tuuna.top/2017/03/14/laravel_pagination/</link>
+      <pubDate>Tue, 14 Mar 2017 10:07:31 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2017/03/14/laravel_pagination/</guid>
+      <description>因为Laravel 手册上对于手动分页的描述并不详细，这里大概说说笔者的实现方法
+ 场景说明 在写一个大分类下所有文章的列表页时，笔者把取出来的数据都转换成了数组,这里为了清晰的说明并没有使用Repository来进行封装。
+/** * 当parent_id为0时为顶级分类，这时候会把顶级分类 * 下的文章以及子分类下的文章都放到一个数组中 * 当parent_id不为0时取出对应分类下的文章 */ Cate::find($id)-&amp;gt;first()-&amp;gt;parent_id == 0 ? $listInfo = array_merge(Cate::with(&#39;articles&#39;)-&amp;gt;where(&#39;id&#39;,$id)-&amp;gt;get()-&amp;gt;toArray(), Cate::with(&#39;articles&#39;)-&amp;gt;where(&#39;parent_id&#39;,$id)-&amp;gt;get()-&amp;gt;toArray()) : $listInfo = Cate::with(&#39;articles&#39;)-&amp;gt;where(&#39;id&#39;,$id)-&amp;gt;get()-&amp;gt;toArray(); 因为转换成数组的缘故，不能直接使用paginate()方法来实现分页。
+手动实现分页 /** * ArticleListController.php * */ &amp;lt;?php namespace App\Http\Controllers; use App\Cate; use Illuminate\Pagination\LengthAwarePaginator; class ArtlistController extends AppController { public function index($id) { Cate::find($id)-&amp;gt;first()-&amp;gt;parent_id == 0 ? $listInfo = array_merge(Cate::with(&#39;articles&#39;)-&amp;gt;where(&#39;id&#39;,$id)-&amp;gt;get()-&amp;gt;toArray(), Cate::with(&#39;articles&#39;)-&amp;gt;where(&#39;parent_id&#39;,$id)-&amp;gt;get()-&amp;gt;toArray()) : $listInfo = Cate::with(&#39;articles&#39;)-&amp;gt;where(&#39;id&#39;,$id)-&amp;gt;get()-&amp;gt;toArray(); $count = 0; foreach ($listInfo as $item) { $count += count($item[&#39;articles&#39;]); } $paginator = new LengthAwarePaginator($listInfo,$count,4); $categories = $this-&amp;gt;parent(); return view(&#39;article.</description>
+    </item>
+    
+    <item>
+      <title>Laravel收发邮件一个致命的错误</title>
+      <link>http://tuuna.top/2017/02/27/laravel_mail_error/</link>
+      <pubDate>Mon, 27 Feb 2017 13:21:39 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2017/02/27/laravel_mail_error/</guid>
+      <description>被这个错误坑了两次，感觉一定要总结出来了TAT
+ 错误情况 Expected response code 250 but got code &amp;quot;553&amp;quot;, with message &amp;quot;553 Mail from must equal authorized user &amp;quot; 这里以163网易邮件为例
+ps.当然出现这个问题的原因不一定是我所说的注意事项，请对号入座
+错误原因 因为Laravel的.env中的默认配置项只有以下几项
+MAIL_DRIVER=smtp MAIL_HOST=smtp.163.com MAIL_PORT=465 MAIL_USERNAME=your_username MAIL_PASSWORD=your_authorization_code MAIL_ENCRYPTION=ssl 这里要注意的是在MAIL_PASSWORD这一栏中我写的是授权码而不是密码，这里的授权码需要去163中设置，不详述。
+ 但是我们注意一下config/mail.php中有两项
+&#39;from&#39; =&amp;gt; [ &#39;address&#39; =&amp;gt; env(&#39;MAIL_FROM_ADDRESS&#39;, &#39;hello@example.com&#39;), &#39;name&#39; =&amp;gt; env(&#39;MAIL_FROM_NAME&#39;, &#39;Example&#39;), ], 这里的MAIL_FROM_ADDRESS,MAIL_FROM_NAME在配置文件中是没有的。所以我们应该加到.env中
+MAIL_FROM_ADDRESS填写你的邮件，MAIL_FROM_ADDRESS填写你的名字(可任取)
+然后重启一下服务器即可。</description>
+    </item>
+    
+    <item>
+      <title>Laravel 5.4中使用Vuejs的坑</title>
+      <link>http://tuuna.top/2017/02/07/laravel_vue/</link>
+      <pubDate>Tue, 07 Feb 2017 03:07:40 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2017/02/07/laravel_vue/</guid>
+      <description>Webpack的方式改变 使用过5.2或5.3的可能使用过Laravel-elixir,默认会有一个gulpfile.js来使用laravel-elixir进行webpack
+const elixir = require(&#39;laravel-elixir&#39;); require(&#39;laravel-elixir-vue-2&#39;); /* |-------------------------------------------------------------------------- | Elixir Asset Management |-------------------------------------------------------------------------- | | Elixir provides a clean, fluent API for defining some basic Gulp tasks | for your Laravel application. By default, we are compiling the Sass | file for your application as well as publishing vendor resources. | */ elixir((mix) =&amp;gt; { mix.sass(&#39;app.scss&#39;) .webpack(&#39;app.js&#39;); }); 在webpack的时候需要输入命令$ gulp
+ 然而在Laravel 5.4中使用的是Laravel-mix，通过查看webpack.mix.js可以发现使用了ES6的语法
+const { mix } = require(&#39;laravel-mix&#39;); /* |-------------------------------------------------------------------------- | Mix Asset Management |-------------------------------------------------------------------------- | | Mix provides a clean, fluent API for defining some Webpack build steps | for your Laravel application.</description>
+    </item>
+    
+    <item>
+      <title>Laravel 中点赞功能实现</title>
+      <link>http://tuuna.top/2017/01/21/laravel_like/</link>
+      <pubDate>Sat, 21 Jan 2017 05:41:36 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2017/01/21/laravel_like/</guid>
+      <description>本文建立于没有用户登录的简单点赞功能，主要使用了Ajax,Redis
+ 配置   首先需要根据官网的指南下载好predis
+$ composer require predis/predis   然后在database.php中配置好redis
+&#39;redis&#39; =&amp;gt; [   ‘client’ =&amp;gt; ‘predis’,
+‘cluster’ =&amp;gt; false,
+‘default’ =&amp;gt; [ ‘host’ =&amp;gt; env(‘REDIS_HOST’, ‘localhost’), ‘password’ =&amp;gt; env(‘REDIS_PASSWORD’, null), ‘port’ =&amp;gt; env(‘REDIS_PORT’, 6379), ‘database’ =&amp;gt; 0, ],
+],
+**注意:** 如果系统用pecl下载了redis，那么上面配置中的client对应的值应该改成phpredis。笔主在本地环境下不加上client也是不会报错的，当然还是要看个人本地或者生产环境下的配置了。 - 最后要在对应的控制器下使用redis use Illuminate\Support\Facades\Redis;
+Redis的使用方式可自行查询手册 ### 点赞的基本原理以及实现思路 **原理：**在用户点赞之后会通过Ajax向后台发起请求，后台首先检测用户是否已经点赞(从Redis中取键值，点赞为1,未点赞为0)。返回对应的状态码给js。BTW，如果加入了用户登录之类的，那么在当前用户点赞之后生成一个cookie来直接判断用户是否已经点赞，就不需要后端再查询数据库，提高响应速度。 **实现思路：**在点赞页的控制器中把当前的点赞情况绑定到视图中，视图中通过js监控点赞按钮，如果点击那么就访问后端逻辑页面来进行逻辑处理。 class IndexController extends Controller { public function index() { $allClick = Redis::get(“click”);
+return view(‘index’,[‘click’ =&amp;gt; $allClick]); }</description>
+    </item>
+    
+    <item>
+      <title>2016年终总结</title>
+      <link>http://tuuna.top/2017/01/12/2016_summary/</link>
+      <pubDate>Thu, 12 Jan 2017 01:31:33 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2017/01/12/2016_summary/</guid>
+      <description>这一年真的过得好快。
+从一个大二变成了一个大三。
+需要为自己的未来思考。 需要考虑如何面对即将来到的工作面试、 怀揣踏入社会前的茫然顾虑的男人。
+为了，能以更好的姿态进入公司，真的放弃了好多， 从大一的爱好交际 离了热闹就要死的人 变成了成天坐在电脑前思考人生的人。 也许真的需要好多的勇气。 其实现在的我真的好喜欢安静， 好喜欢一个人， 静静的感受时间从指尖流逝， 在脑中勾画出一个又一个世界， 非常的美好，真的。 但是我又好羡慕大一的自己， 不用把自己束缚在小小的世界， 能在酒桌上肆意叫喊， 能勾肩搭背狂笑着再来一杯， 能在KTV挥霍心中的压力与不满， 能冲动的做一件又一件可能超出我能力的事， 能做错了事也不后悔。 那时候的我满是激情与冲劲。 可惜，这一年我变了。 我开始认真思考每一个问题的利弊， 我开始衡量自己的能力是否能够负责一件事， 我开始怀疑，我开始害怕失败， 我失去了对于热闹气氛的渴望， 也许我是变得沉稳了一点， 但是。真的值吗？ 和我失去的那一部分自己相比， 这样的变化我不喜欢。 诚然，身边还是有那么多朋友， 而且真心朋友也有几个。 可是真的少了一个陪伴我的人， 希望每天都能够一笑，一言，一语， 能够弥补心中的那块空缺。 现在的我不再是那个刚进大学的孩子， 我开始感知身上的责任， 我开始用实际行动充实自己， 毕竟，社会不相信眼泪。 命，是失败者的接口; 运，是成功者的谦词; 这都是虚的。 与其天天幻想，天天拿着手机刷朋友圈， 还不如多敲一行代码，每敲的一行代码， 其实也是你人生的一部分。 学校，可能会怀念吧， 毕竟坐在教室中学习的时间不多了， 但是若干年之后，除了同班的一些同学， 以及有趣的老师，还会记住什么呢？ 我们也许会慢慢忘记， 忘了当年的年少无知， 忘了当年的热血疯狂， 忘了当年的马利奶奶。 也许你只会记得自己。 所以， 珍惜剩下的时间，加油向前。 岁月，总是让人惶恐。 今年我正式20岁了，爸妈结婚20年了， 虽然爸妈保养得很好，看着也还蛮年轻， 但是妈咪已经染发几年了， 爸爸的寸发中也偶然有了白发。 我担心以后很少时间陪他们， 甚至都不能感知他们的变老， 我想要在事业上努力， 但我也希望能一直陪着他们。 毕竟，他们才是世界上，最无私的人。 2017，又有一批人要毕业了， 闫哥，老秘书学姐，王总， 2018，我们也毕业了。 人来了又去，聚了又散。 珍惜现在的岁月， 来时相见，仍岁月依旧。 好像不知道说什么了， 因为很多东西， 也许无法用文字精确表述。 那就这样吧。</description>
+    </item>
+    
+    <item>
+      <title>在Ubuntu16.10下使用Live Wallpaper</title>
+      <link>http://tuuna.top/2017/01/10/ubuntu_live_wallpaper/</link>
+      <pubDate>Tue, 10 Jan 2017 04:52:22 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2017/01/10/ubuntu_live_wallpaper/</guid>
+      <description> 因为最近PDD在直播的时候使用了Steam的一款动态桌面的软件Wallpaper Engine，不少人开始关注动态桌面，包括Windows下能使用的免费动态视频桌面萤火，在Linux下 工作的程序猿也可以试试Live Wallpaper来缓解视觉疲劳
+ 安装Live Wallpaper $ sudo add-apt-repository ppa:fymir/livewallpaper-daily $ sudo apt update  如果你使用的是16.10之前的版本通过以上的步骤是完全没有问题的，但是如果使用的16.10那么在update之后会报错没有找到相应的yakkety release package  解决方法  进入系统设置 打开软件和更新 在其它软件中找到fyrmir包，编辑 把发行版一栏修改为xenial  $ sudo apt update $ sudo apt install livewallpaper livewallpaper-config livewallpaper-indicator 配置Live Wallpaper 在Dash 面板中搜索我们可以发现已经有Livewallpaper以及Livewallpaper 首选项两个应用了
+ 使用Win键调出Dash面板
+ 首先打开Livewallpaper然后我们使用Livewallpaper首选项进行页面的配置
+ 我们可以修改背景图片，可以修改动态样式，可以设计颜色，条纹数等等。  样式图 </description>
+    </item>
+    
+    <item>
+      <title>电商大数据数据推荐算法分析</title>
+      <link>http://tuuna.top/2016/12/26/recommendation_algorithm/</link>
+      <pubDate>Mon, 26 Dec 2016 13:43:43 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2016/12/26/recommendation_algorithm/</guid>
+      <description> 某电商网站大数据大赛的任务是根据用户4个月在电商网站的行为日志，建立用户的品牌喜好。
+ 评估的指标  准确率： 当然预测的品牌的准确率越高越好 召回率： 检测给用户推荐的商品的实际购买率  算法   协同过滤推荐Collaborative filtering：分析用户兴趣，在用户群中找到指定的用户的相似用户，综合这些相似的用户对某一信息的评价，形成系统对该指定用户对于此信息的喜好预测。
+ item-based CF : 基于物品的协同过滤，通过用户对于不用物品的评分来评测物品之间的相似性，基于物品之间的相似性做出推荐。 user-based CF : 基于用户的协同过滤，通过不同用户对物品的评分来评测用户之间的相似性，基于用户之间的相似性做出推荐。    数据挖掘算法：主要是在现有数据上进行基于各种算法的计算，从而起到预测的效果，从而实现一些高级别的数据分析的需求。
+ K-means 逻辑回归 随机森林 统计学习SVM 分类Native Bayes    这里主要是要注意文件与Map的相互转换，为了方便推荐商品，一般把数据表设计为键值对是最好的，所以如果源文件为CSV或者普通的SQL语句，最好是放到一个非关系数据库中(比如Redis之类)的对于key-value支持性非常好的数据库中，当然也可以在代码中直接应用Map映射。
+  其实感觉在实际操作中比较简单的模型就是用户在浏览一件商品之后，会推荐同类的商品，而且可以通过分析用户的购物车中的商品，来得到一些近似推荐，还有实时推荐可以根据用户最近的cookie的商品信息来推荐。
+  当用户购买了一件商品之后，隔一个月可以再推荐同类商品（购买即推荐模型），但是这种模型还是有着它自身的很多弊端，比如用户会因为看到更好更便宜的商品而降低用户体验，当然如果对于一些常买类的商品比如衣服，装饰物，礼物等这个模型无疑是很简单有效的。
+  对于购买即推荐的弊端还可以使用其它算法来弥补。比如前三个月购买，后一个月只有点击。 即是前三个月购买的商品，后一个月还点击查看的用户购买商品的可能性就比较大了，这样可以更加精确的推荐到用户所想购买的东西。
+  对于点击多次的商品即推荐，设置一个阀值，当用户对这样商品的操作达到了初定的阀值时便推荐，用户购买的几率就会增大。
+  基于时间权重模型，因为推荐算法的种类太多，交集太多，所以我们需要对于已定的推荐也有一个排序，所以我们使用时间权重来对于用户最近的点击，购买，收藏，购物车行为进行权重计算，比如初定各个操作的去啊是那种，如点击0.5,购买2，等通过公式
+delta∗(days/dayGranularity+1)∗dayWeightdeltadaysdayGranularity1dayWeight
+，其中delta表示4种行为初始的权重，days表示该行为发生的日期离当前时间的跨度，dayGranularity表示时间粒度，即每隔多少天之后，权重会提高，dayWeight表示每隔dayGranularity 天后权重提升的比例。
+  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu16.04ionic(jdksdkgradle)环境搭建完全攻略</title>
+      <link>http://tuuna.top/2016/07/23/ubuntu_ionic/</link>
+      <pubDate>Sat, 23 Jul 2016 09:41:11 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2016/07/23/ubuntu_ionic/</guid>
+      <description>在Ubuntu16.04当中搭建一个ionic环境还是按照官方教程的来，主要问题是首先要把JDK,SDK搭好，环境变量配好。本文中给的包的下载请不要直接用浏览器下载，很慢，尽量用wget 下载，重要的事说一遍！
+ JDK 下载地址：jdk下载
+ 访问到官网，就可以下载下来一个包文件了，对应着Ubuntu16.04就下载Linux ×64对应的tar.gz包  下载完成之后按以下命令
+$ tar -zxvf jdk-8u101-linux-x64.tar.gz #得到jdk1.8.0_101文件夹 $ cd /usr/lib $ sudo mkdir jvm #一般把jdk对应的文件放在/usr/lib/jvm下 $ cd - #回到解包的文件对应的文件夹 $ mv jdk1.8.0_101 /usr/lib/jvm/   接下来配置环境变量
+ 如果你没有安装zsh之类的终端插件，那么直接vim ~/.bashrc ，加入下面的三行，然后保存重新开一个终端即可(当然也可以修改/etc/profile,然后source)
+   export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_101 #最后这一项要对应你放到jvm下的包的文件名 export PATH=$JAVA_HOME/bin:$PATH export CLASSPATH=.:$JAVA_HOME/lib/dt,jar:$JAVA_HOME/lib/tools.jar  如果安装了zsh,也是同理，vim ~/.zshrc 最后加入上面三行即可
+  通过java -version验证  SDK 下载地址：sdk下载
+这里需要注意的是：你可以选择直接下载Android-Studio,因为Android-Studio中如果你没有安装SDK，那么会帮你下载相关的tool,包之类的，但是速度比较慢，所以推荐先配置SDK。
+ 下载sdk包之后，得到一个android-sdk-linux.tar.gz,然后执行以下命令  $ tar -zxvf android-sdk-linux.tar.gz #得到android-sdk-linux文件夹 $ mv android-sdk-linux /usr/local #把这个文件夹移动到/usr/local下  然后配置环境变量  同上vim ~/.</description>
+    </item>
+    
+    <item>
+      <title>ubuntu 16.04 LAMP环境手动配置以及问题解析</title>
+      <link>http://tuuna.top/2016/05/28/ubuntu_lamp/</link>
+      <pubDate>Sat, 28 May 2016 05:37:02 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2016/05/28/ubuntu_lamp/</guid>
+      <description>笔者因为前几天ubuntu15.10遇到的显卡驱动导致的循环登录问题烦恼了很久，最后试遍了网上所有方法也是没有解决，遂升级到16.04,本文则主要讨论一下在16.04中配置lamp环境以及可能会遇到的一些问题。(lnmp基本相同) PHP # sudo apt install php7.0 # php -v # PHP 7.0.4-7ubuntu2.1 (cli) ( NTS ) Copyright (c) 1997-2016 The PHP Group Zend Engine v3.0.0, Copyright (c) 1998-2016 Zend Technologies with Zend OPcache v7.0.6-dev, Copyright (c) 1999-2016, by Zend Technologies 看到以上php 信息则表示php7已经安装成功，我们可以借此安装一些extensions
+ curl,mycrypt,sqlite3等  Apache2 # sudo apt install apache2 # apache2 -v Server version: Apache/2.4.18 (Ubuntu) Server built: 2016-04-15T18:00:57 看到以上信息则表示Apache2已经安装成功，这时在地址栏中输入localhost则会跳出相应的Apache信息
+当然这时候我们如果打开一个php脚本如phpinfo() ,是不能解析的，这时候我们还需要安装一个模块来让apache2能够顺利解析php代码
+# sudo apt install libapache2-mod-php7.0 再次访问包含phpinfo()的文件则可以显示出php的信息</description>
+    </item>
+    
+    <item>
+      <title>ubuntu各种界面美化大型攻略</title>
+      <link>http://tuuna.top/2016/03/13/ubuntu_beautify/</link>
+      <pubDate>Sun, 13 Mar 2016 11:29:45 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2016/03/13/ubuntu_beautify/</guid>
+      <description>序 说实话，如果你刚从windows转到ubuntu，无疑会觉得挺丑的，无论是侧边栏的不习惯，还是现在版本中ubuntu自带的unity桌面(个人感觉还没gnome好看…)，还有红红的主题。真的给人一种低逼格低实用的感觉，为毛线Windows10就各种好看，无论是默认窗口的黑灰优雅颜色还是开始项的整洁布局，还是自定义的主题颜色，各种好看好吗，甚至开机都挺好看的，整体蓝色，圆形登陆图标。
+获得HIGH BIGGER  GRUB 首先我们打开电脑，会进入grub界面，如果不修改grub的背景图片，就用原生的红红的图片，你还会有进ubuntu的冲动吗？太难看!
+那么首先修改GRUB的背景
+ 首先找到一张你喜欢的图片，最好是和你的屏幕分辨率一致的 然后把图片的名字修改成background.*(图片的后缀名)，然后打开terminal输入 sudo mv background.* /boot/grub/ 接下来用继续输入* sudo gedit /etc/default/grub *，这时gedit会打开这个grub配置文件，找到#GRUB_GFXMODE这个参数，并且把#去掉，在等号后输入你屏幕的分辨率，例：GRUB_GFXMODE = 1920×1080 然后sudo update-grub，最后reboot一下，就行了，是不是感觉整个人都爽了  桌面 进入桌面之后我们可能会觉得侧栏特别不爽，虽然这是一个很合理的分布，但是还是想自己看着好看，那么我们肯定会想到mac上面的桌面分布，把那些快捷图标放到桌面下，而且加上一些动画效果就好了，那么怎么做呢？
+cairo-dock 说到桌面插件，我们肯定要想到cairo-dock这个神器了 那么cairo-dock可以自定义很多的主题，也可以自定义很多的图标动画效果
+那么说一下可能遇到的问题
+1.需要开机自启，如果不设置为开机项，那么每次开机后还要重新启动cairo-dock非常的麻烦，所以要手动把它设为开机项，具体怎么弄请自行google。
+2.启动器的设置问题，有一些软件你如果直接设置为一个启动器是没有问题的，但是有一些却不行，对于这些不能自动设置为启动器的软件，只能自己去找到路径然后把它设置为快捷方式。
+主题字体图标光标 在我们设置完毕桌面之后是不是感觉瞬间清爽了不少，但是还不够，你还是不能对于ubuntu自带的三个不愠不火的主题满意，也不能对ubuntu默认的图标满意，甚至我们更希望光标是一个奇形怪状的样子来配合我们美好的壁纸。
+Ubuntu Tweak 这是一个专业的设置各种东西的软件,包括主题光标字体等等 通过这个可以设置主题光标图标，那么那些主题包在网上都可以搜到，并且都有详细的操作步骤，这里就不多赘述了。
+终端 作为我们经常要用到的终端当然也要漂亮，这个很简单，只需要自己在首选项设置里面设置就行了，可以设置透明度，颜色背景颜色，甚至自己放一张图片上去，简单轻松且惬意。
+浏览器 终于我们把开机桌面主题等等都设置得满意了，我们发现好像ubuntu更加可爱，那么我们日常经常用到的还有浏览器辣！
+火狐谷歌神器级插件stylish 这款插件可以根据你访问的特定的一些页面改变其css等，让你的界面更加的好看，比如google就可以设置上很多很赞的背景 get rid of 那些呆板的白色就从这个插件开始。
+the end</description>
+    </item>
+    
+    <item>
+      <title>Archive</title>
+      <link>http://tuuna.top/archives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://tuuna.top/archives/</guid>
+      <description>archives</description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>http://tuuna.top/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://tuuna.top/about/</guid>
+      <description>个人简介 网名：槐洛文
+英文网名：tuuna
+出生：1996年10月
+职业：后端攻城狮/数据库/存储攻城狮
+我的博客主要用途是存放一些我的学习笔记、一些小案例，分享一下我的学习、工作经验。
+经历 2021.07 - 未来 腾讯 CSIG产品部后端 待入职
+2018.09 - 2021.06	电子科技大学	计算机技术(分布式存储与计算)	研究生
+2014.09 - 2018.06	南京信息工程大学	网络工程	本科
+一些经验 2019.12 - 2020.04 中国电子科技XX研究所 基于MongoDB集群的业务开发 项目概述：为突破甲方系统瓶颈并满足新出现的业务需求，解决业务响应慢，功能不完善，难以拓展的问题。基&amp;gt;于MongoDB ，运用其原生查询语句，针对海量数据，在多种部署环境下开发业务应用后台软件，实现业务数据的&amp;gt;存储及各种应用，并提高系统性能。
+本人负责：前期主要负责片键设计，数据表设计以及优化思路的考虑。中后期使用Spring-boot进行部分应用接口 的开发、预警模块的逻辑实现以及冷热数据迁移逻辑的编写。 2019.06 - 2020.01 某军工研究所 PostgreSQL与HBASE 项目概述：为满足甲方所提出的空间数据的分布式存储与查询需求，解决传统GIS空间数据存在存储方式在数据量 较大、并发数较高时的数据访问效率较低，且难以扩展的问题，研究海量空间数据的管理方式以及数据的分布式&amp;gt;存储与查询的问题。
+本人负责：负责研究PostgreSQL与HBase对于空间数据的存储查询方式，调研在HBase中采用geohash的方式对空间 数据进行存储优化的方式。
+2017.09 - 2018.09 经历叙述: 大四考研到电子科技大学，并在百度视频担任PHP实习工程师的工作。
+2016.09 - 2017.09 经历叙述：大三参加学校举办的黑客马拉松活动，经过一天一夜的编码，写出了走路键行的Web App。负责API的&amp;gt;设计与实现，最终小组获得第二名。下半学期与社团成员开发活动行网站，为学校社团活动的发布提供便利。负&amp;gt;责后端的开发。参与了大创项目。并在南京育儿网担任PHP实习工程师的工作。
+2015.09 - 2016.09 经历叙述：大二与社团前端人员合作，完成校园一卡通。负责完成Web Service实现了转账充值，成绩查询等功能 ，嵌入微信公众号一个月的时间得到了2000+的关注量。并且参加了很多类似于GDG等交流会，提升了远见，拓宽&amp;gt;了视野。
+2014.09 - 2015.09 经历叙述：大一加入院学生会外联部，加入技术社团多火工作室，成为PHP组负责人，负责开发的基于ThinkPHP的 网站的维护和二次开发。帮助大气科学院完成了功能的添加。大一顺利通过英语四级和六级。
+喜欢的事 一个想写小说的程序员👏</description>
+    </item>
+    
+  </channel>
+</rss>

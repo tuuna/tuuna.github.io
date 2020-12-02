@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>美化 on 洛文小站</title>
+    <link>http://tuuna.top/categories/%E7%BE%8E%E5%8C%96/</link>
+    <description>Recent content in 美化 on 洛文小站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 10 Jan 2017 04:52:22 +0000</lastBuildDate><atom:link href="http://tuuna.top/categories/%E7%BE%8E%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在Ubuntu16.10下使用Live Wallpaper</title>
+      <link>http://tuuna.top/2017/01/10/ubuntu_live_wallpaper/</link>
+      <pubDate>Tue, 10 Jan 2017 04:52:22 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2017/01/10/ubuntu_live_wallpaper/</guid>
+      <description> 因为最近PDD在直播的时候使用了Steam的一款动态桌面的软件Wallpaper Engine，不少人开始关注动态桌面，包括Windows下能使用的免费动态视频桌面萤火，在Linux下 工作的程序猿也可以试试Live Wallpaper来缓解视觉疲劳
+ 安装Live Wallpaper $ sudo add-apt-repository ppa:fymir/livewallpaper-daily $ sudo apt update  如果你使用的是16.10之前的版本通过以上的步骤是完全没有问题的，但是如果使用的16.10那么在update之后会报错没有找到相应的yakkety release package  解决方法  进入系统设置 打开软件和更新 在其它软件中找到fyrmir包，编辑 把发行版一栏修改为xenial  $ sudo apt update $ sudo apt install livewallpaper livewallpaper-config livewallpaper-indicator 配置Live Wallpaper 在Dash 面板中搜索我们可以发现已经有Livewallpaper以及Livewallpaper 首选项两个应用了
+ 使用Win键调出Dash面板
+ 首先打开Livewallpaper然后我们使用Livewallpaper首选项进行页面的配置
+ 我们可以修改背景图片，可以修改动态样式，可以设计颜色，条纹数等等。  样式图 </description>
+    </item>
+    
+    <item>
+      <title>ubuntu各种界面美化大型攻略</title>
+      <link>http://tuuna.top/2016/03/13/ubuntu_beautify/</link>
+      <pubDate>Sun, 13 Mar 2016 11:29:45 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2016/03/13/ubuntu_beautify/</guid>
+      <description>序 说实话，如果你刚从windows转到ubuntu，无疑会觉得挺丑的，无论是侧边栏的不习惯，还是现在版本中ubuntu自带的unity桌面(个人感觉还没gnome好看…)，还有红红的主题。真的给人一种低逼格低实用的感觉，为毛线Windows10就各种好看，无论是默认窗口的黑灰优雅颜色还是开始项的整洁布局，还是自定义的主题颜色，各种好看好吗，甚至开机都挺好看的，整体蓝色，圆形登陆图标。
+获得HIGH BIGGER  GRUB 首先我们打开电脑，会进入grub界面，如果不修改grub的背景图片，就用原生的红红的图片，你还会有进ubuntu的冲动吗？太难看!
+那么首先修改GRUB的背景
+ 首先找到一张你喜欢的图片，最好是和你的屏幕分辨率一致的 然后把图片的名字修改成background.*(图片的后缀名)，然后打开terminal输入 sudo mv background.* /boot/grub/ 接下来用继续输入* sudo gedit /etc/default/grub *，这时gedit会打开这个grub配置文件，找到#GRUB_GFXMODE这个参数，并且把#去掉，在等号后输入你屏幕的分辨率，例：GRUB_GFXMODE = 1920×1080 然后sudo update-grub，最后reboot一下，就行了，是不是感觉整个人都爽了  桌面 进入桌面之后我们可能会觉得侧栏特别不爽，虽然这是一个很合理的分布，但是还是想自己看着好看，那么我们肯定会想到mac上面的桌面分布，把那些快捷图标放到桌面下，而且加上一些动画效果就好了，那么怎么做呢？
+cairo-dock 说到桌面插件，我们肯定要想到cairo-dock这个神器了 那么cairo-dock可以自定义很多的主题，也可以自定义很多的图标动画效果
+那么说一下可能遇到的问题
+1.需要开机自启，如果不设置为开机项，那么每次开机后还要重新启动cairo-dock非常的麻烦，所以要手动把它设为开机项，具体怎么弄请自行google。
+2.启动器的设置问题，有一些软件你如果直接设置为一个启动器是没有问题的，但是有一些却不行，对于这些不能自动设置为启动器的软件，只能自己去找到路径然后把它设置为快捷方式。
+主题字体图标光标 在我们设置完毕桌面之后是不是感觉瞬间清爽了不少，但是还不够，你还是不能对于ubuntu自带的三个不愠不火的主题满意，也不能对ubuntu默认的图标满意，甚至我们更希望光标是一个奇形怪状的样子来配合我们美好的壁纸。
+Ubuntu Tweak 这是一个专业的设置各种东西的软件,包括主题光标字体等等 通过这个可以设置主题光标图标，那么那些主题包在网上都可以搜到，并且都有详细的操作步骤，这里就不多赘述了。
+终端 作为我们经常要用到的终端当然也要漂亮，这个很简单，只需要自己在首选项设置里面设置就行了，可以设置透明度，颜色背景颜色，甚至自己放一张图片上去，简单轻松且惬意。
+浏览器 终于我们把开机桌面主题等等都设置得满意了，我们发现好像ubuntu更加可爱，那么我们日常经常用到的还有浏览器辣！
+火狐谷歌神器级插件stylish 这款插件可以根据你访问的特定的一些页面改变其css等，让你的界面更加的好看，比如google就可以设置上很多很赞的背景 get rid of 那些呆板的白色就从这个插件开始。
+the end</description>
+    </item>
+    
+  </channel>
+</rss>
