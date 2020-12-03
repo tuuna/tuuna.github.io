@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MongoDB on 洛文小站</title>
+    <link>http://tuuna.top/tags/mongodb/</link>
+    <description>Recent content in MongoDB on 洛文小站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 29 Sep 2019 11:16:31 +0000</lastBuildDate><atom:link href="http://tuuna.top/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2e数据量下MongoDB查询性能测试</title>
+      <link>http://tuuna.top/2019/09/29/mongo_test/</link>
+      <pubDate>Sun, 29 Sep 2019 11:16:31 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2019/09/29/mongo_test/</guid>
+      <description>硬件环境：三台4核CPU、32G内存、100G磁盘 测试数据量: 1.96e
+Order表结构如下：
+{ &amp;quot;_id&amp;quot;: ObjectId, &amp;quot;uid&amp;quot;: &amp;quot;uid186642&amp;quot;, //有索引 &amp;quot;name&amp;quot;: &amp;quot;商品214&amp;quot;, &amp;quot;money&amp;quot;: 899 }    语句类型 查询语句 有无索引 测试结果(时间，返回数据量)     等值查询 db.order.find({uid:“uid150902”}) 有 7ms, 949条   等值查询 db.order.find({money:999}) 无 28.57s, 1929条   In查询 db.order.find({uid: {$in: [“uid100000”, “uid123456”, “uid089345”]}}) 有 19ms, 2860条   In查询 db.order.find({money: {$in: [300, 450, 999]}}) 无 30.37s, 5871条   范围查询 db.order.find({uid:{$gt:“uid198800”}}) 有 4.59s，117w条   范围查询 db.order.find({money:{$gt:990}}) 无 29.</description>
+    </item>
+    
+  </channel>
+</rss>

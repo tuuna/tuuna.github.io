@@ -1,0 +1,70 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Posts | 洛文小站</title><meta name=keywords content><meta name=description content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod"><meta name=author content="Theme PaperMod"><link rel=canonical href=http://tuuna.top/posts/><link href=http://tuuna.top/assets/css/stylesheet.min.46b233709fd2c907e04a2d946c05f4e1d6edaf81b562cbfdaf6f11aeaa32248c.css integrity="sha256-RrIzcJ/SyQfgSi2UbAX04dbtr4G1Ysv9r28RrqoyJIw=" rel="preload stylesheet" as=style><link rel=icon href=http://tuuna.top/favicon.ico><link rel=icon type=image/png sizes=16x16 href=http://tuuna.top/favicon16x16.png><link rel=icon type=image/png sizes=32x32 href=http://tuuna.top/favicon32x32.png><link rel=apple-touch-icon href=http://tuuna.top/apple-touch-icon.png><link rel=mask-icon href=http://tuuna.top/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><meta name=generator content="Hugo 0.78.2"><link rel=alternate type=application/rss+xml href=http://tuuna.top/posts/index.xml><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-123-45','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><meta property="og:title" content="Posts"><meta property="og:description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod"><meta property="og:type" content="website"><meta property="og:url" content="http://tuuna.top/posts/"><meta property="og:updated_time" content="2020-12-02T20:16:50+08:00"><meta property="og:site_name" content="洛文小站"><meta name=twitter:card content="summary"><meta name=twitter:title content="Posts"><meta name=twitter:description content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod"></head><body class=list id=top><script>if(localStorage.getItem("pref-theme")==="dark"){document.body.classList.add('dark');}else if(localStorage.getItem("pref-theme")==="light"){document.body.classList.remove('dark')}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.body.classList.add('dark');}</script><noscript><style type=text/css>.theme-toggle,.top-link{display:none}</style></noscript><header class=header><nav class=nav><div class=logo><a href=http://tuuna.top accesskey=h><img src=/cloud.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches><span class=theme-toggle><a id=theme-toggle accesskey=t><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></a></span><span class=lang-switch><span>|</span><ul><li><a href=http://tuuna.top/about/ title=About aria-label=About>About</a></li></ul></span></span></div><ul class=menu id=menu onscroll=menu_on_scroll()><li><a href=http://tuuna.top/archives/><span>Archive</span></a></li><li><a href=http://tuuna.top/tags/><span>Tag</span></a></li></ul></nav></header><main class=main><header class=page-header><h1>Posts</h1></header><article class=post-entry><header class=entry-header><h2>DB与FS比较</h2></header><section class=entry-content><p>文章目录 数据库以及FS比较 HDFS、Ceph差异对比 HDFS设计目标 HDFS文件目录 Ceph设计目标 Ceph数据结构 HDFS文件导出 Ceph文件导出 暂时的结论 其它FS选型 其它思路 总结 Hbase、Cassendra、TiDB适用场景以及相关生态 Hbase 基本简介 特性 优势 缺点 Cassendra 基本简介 重要特性 优势 劣势 TiDB 基本简介 特性 使用场景 生态 已存在HDFS中的解析成结果数据 导入到 SQL 从 Sqoop 中导出 HDFS、Ceph差异对比 HDFS设计目标 存储非常大的文件：这里非常大指的是几百M、G、或者TB级别。实际应用中已有很多集群存储的数据达到PB级别。根据Hadoop官网，Yahoo！的Hadoop集群约有10万颗CPU，运行在4万个机器节点上。更多世界上的Hadoop集群使用情况，参考Hadoop官网.
+采用流式的数据访问方式: HDFS基于这样的一个假设：最有效的数据处理模式是一次写入、多次读取数据集经常从数据源生成或者拷贝一次，然后在其上做很多分析工作 分析工作经常读取其中的大部分数据，即使不是全部。 因此读取整个数据集所需时间比读取第一条记录的延时更重要。
+运行于商业硬件上: Hadoop不需要特别贵的、reliable的机器，可运行于普通商用机器（可以从多家供应商采购） 商用机器不代表低端机器在集群中（尤其是大的集群），节点失败率是比较高的HDFS的目标是确保集群在节点失败的时候不会让用户感觉到明显的中断。...</p></section><footer class=entry-footer>September 26, 2019&nbsp;·&nbsp;2 min&nbsp;·&nbsp;赖杰</footer><a class=entry-link aria-label="post link to DB与FS比较" href=http://tuuna.top/2019/09/26/db_fs_compare/></a></article><article class=post-entry><header class=entry-header><h2>Flume+Kafka+Spark环境搭建</h2></header><section class=entry-content><p>文章目录 单机版环境搭建及相关DEMO Flume Flume基本介绍与架构 Flume安装部署 案例实操 Kafka 环境搭建 Kafka控制台的一些命令操作 Java API控制Kafka Flume+Kafka配合 Spark Spark 简介 Spark环境搭建 在Spark Shell 中运行代码 Scala编写wordCount 在Spark-Shell中执行词频统计 词频统计 编写独立应用程序执行词频统计 Flume_Kafka_SparkStreaming实现词频统计 准备工作 分布式环境搭建及相关DEMO Flume Kafka Spark 本文档主要讲述了flume+kafka+spark的单机分布式搭建，由浅入深，介绍了常见大数据流处理流程
+单机版环境搭建及相关DEMO Flume Flume基本介绍与架构 Flume是Cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统。Flume基于流式架构，灵活简单。
+Flume出生日记
+有很多的服务和系统
+network devices operating system web servers Applications 这些系统都会产生很多的日志，那么把这些日志拿出来，用来分析时非常有用的。...</p></section><footer class=entry-footer>September 26, 2019&nbsp;·&nbsp;13 min&nbsp;·&nbsp;赖杰</footer><a class=entry-link aria-label="post link to Flume+Kafka+Spark环境搭建" href=http://tuuna.top/2019/09/26/flume_kafka_spark_building/></a></article><article class=post-entry><header class=entry-header><h2>Ubuntu上U盘只可读问题解决方案</h2></header><section class=entry-content><p>笔者今天上机的时候，同学借我U盘在Win7下拷贝东西，但是发现有一个文件夹是空的，笔者就再插到正在使用的Ubuntu16.10的机器上，发现文件全锁定了，只能读，并且用超级用户并不能更改权限。
+具体解决方法如下 查看U盘的挂载点 $ df -h 可以发现文件系统的路径为/dev/sdd4
+然后使用命令即可 $ mount -o remount,rw /dev/sdd4 # /dev/sdd4需要替换成自己看到的文件系统路径 重新挂载完毕，问题解决 问题总结 Linux大法保平安...</p></section><footer class=entry-footer>September 26, 2019&nbsp;·&nbsp;1 min&nbsp;·&nbsp;赖杰</footer><a class=entry-link aria-label="post link to Ubuntu上U盘只可读问题解决方案" href=http://tuuna.top/2019/09/26/ubuntu_flashdisk_solution/></a></article><article class=post-entry><header class=entry-header><h2>2018年总结</h2></header><section class=entry-content><p>2018年吧。
+可能真的是低开高走，然后低走低走低走。
+好像得到了一些，但是又好像失去了更多。
+混进了电子科大，放弃了工作，开始了研究生生活。
+然后。
+我迷茫了，我发现，这并不是我想要的。
+我不喜欢为了别人活着。
+我不喜欢漫无目的。
+我不喜欢失去了初心。
+我突然不像大学一样。
+对未来的方向充满了希望。
+一个劲儿的往那个方向走去。
+我变得唯唯诺诺。
+失去了过去对于计算机的热情。
+只有充斥着的繁琐的文字，
+以及周围人的提醒。
+越来越自卑。
+越来越不相信自己。
+未来。
+对于未来。
+我没有了信心。
+这世上平凡人太多了。
+我真的只是那个平凡得不能再平凡的人了。
+我感觉很累。
+这才是生活吧。
+每个人有每个人的不容易。
+每个人有每个人的烦心。
+勤奋，努力，可以改变命运。
+也许吧。
+但是。这是生活完全的诠释吗。
+我不知道。
+现在的我，
+只有左冲右撞。
+一直停留啊
+停留啊
+在原地
+走不动吗？
+我到底往哪走。
+我不知道。
+日子过得太快了。
+一年又一年。
+我不能再任性。
+不能不顺心就辞职不干。
+不能让父母太过担心。
+不能太消极影响身边的人。
+我应该跟上身边人的脚步，
+找到属于我的路。
+但是什么时候？
+我不知道。
+2019年。
+低调做人
+沉下去。
+我唯一的愿望。...</p></section><footer class=entry-footer>January 10, 2019&nbsp;·&nbsp;1 min&nbsp;·&nbsp;赖杰</footer><a class=entry-link aria-label="post link to 2018年总结" href=http://tuuna.top/2019/01/10/2018%E5%B9%B4_summary/></a></article><article class=post-entry><header class=entry-header><h2>位运算相关操作整理</h2></header><section class=entry-content><p>定义 定义：其实说白了，位运算就是直接对整数在内存中的二进制位进行操作 特点：位运算直接对内存数据进行操作，不需要转成十进制，速度很快 基本位运算符 and( & ) : 通常用于二进制位操作，如一个数&1的结果就是取二进制的最末尾，可以用来判断整数奇偶 or( | ) : 通常用于二进制定位上的无条件赋值，例如一个数or1的结果就是把二进制最末位强行变成1,若要变成0则减1就可以了，实际意义就是把这个数强行变成最接近的偶数 xor( ^ ) : 通常用于对二进制的特定一位进行取反，可以对两个数进行交换 not( ~ ) : 取反，注意的是整数类型有没有符号，如果是无符号整数，那么得到的值为其与上界的差 left shift( « ) : 左移，在二进制数每添一位0就相当于乘2，因此每左移一位就相当于乘2；并且在常量的定义上，比如可以通过1 &lt;&lt; 16 来表示65535 对应与集合运算则是交集、并集、差集和补集，假设集合 A 是 {0, 3, 5, 6}，集合 B 是 {0, 2, 4, 6}，全集为 {0, 1, 2, 3, 4, 5, 6, 7}那么：
+& 交集 Intersection {0, 6} | 并集 Union {0, 2, 3, 4, 5, 6} ^ 差集 Symmetric difference {2, 3, 4, 5} ~ 补集 Complement {1, 3, 5, 7} 位 运算符简单应用 经典题型：做数独时我们需要27个Hash表来统计每一行、每一列和每一个小九宫格里已经有哪些数了。此时，我们可以用27个小于2^9的整数进行记录。例如，一个只填了2和5的小九宫格就用数字18表示（二进制为000010010），而某一行的状态为511则表示这一行已经填满。需要改变状态时我们不需要把这个数转成二进制修改后再转回去，而是直接进行位操作。在搜索时，把状态表示成整数可以更好地进行判重等操作。...</p></section><footer class=entry-footer>July 19, 2018&nbsp;·&nbsp;2 min&nbsp;·&nbsp;赖杰</footer><a class=entry-link aria-label="post link to 位运算相关操作整理" href=http://tuuna.top/2018/07/19/bit_calculation/></a></article><footer class=page-footer><nav class=pagination><a class=prev href=/posts/>« Prev Page</a>
+<a class=next href=/posts/page/3/>Next Page »</a></nav></footer></main><footer class=footer><span>&copy; 2020 <a href=http://tuuna.top>洛文小站</a></span>
+<span>&#183;</span>
+<span>备案号 <a href=http://www.beian.miit.gov.cn/ rel="noopener noreferrer">蜀ICP备15022210号-3</a></span>
+<span>&#183;</span>
+<span>Theme <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top" accesskey=g><button class=top-link id=top-link type=button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6"><path d="M12 6H0l6-6z"/></svg></button></a>
+<script defer src=http://tuuna.top/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w=" onload=hljs.initHighlightingOnLoad();></script><script>window.onload=function(){if(localStorage.getItem("menu-scroll-position")){document.getElementById('menu').scrollLeft=localStorage.getItem("menu-scroll-position");}}
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{anchor.addEventListener("click",function(e){e.preventDefault();var id=this.getAttribute("href").substr(1);document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({behavior:"smooth"});});});var mybutton=document.getElementById("top-link");window.onscroll=function(){if(document.body.scrollTop>800||document.documentElement.scrollTop>800){mybutton.style.visibility="visible";mybutton.style.opacity="1";}else{mybutton.style.visibility="hidden";mybutton.style.opacity="0";}};function menu_on_scroll(){localStorage.setItem("menu-scroll-position",document.getElementById('menu').scrollLeft);}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{if(document.body.className.includes("dark")){document.body.classList.remove('dark');localStorage.setItem("pref-theme",'light');}else{document.body.classList.add('dark');localStorage.setItem("pref-theme",'dark');}})</script></body></html>

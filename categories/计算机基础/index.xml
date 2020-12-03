@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>计算机基础 on 洛文小站</title>
+    <link>http://tuuna.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</link>
+    <description>Recent content in 计算机基础 on 洛文小站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 19 Jul 2018 01:26:52 +0000</lastBuildDate><atom:link href="http://tuuna.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>位运算相关操作整理</title>
+      <link>http://tuuna.top/2018/07/19/bit_calculation/</link>
+      <pubDate>Thu, 19 Jul 2018 01:26:52 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2018/07/19/bit_calculation/</guid>
+      <description>定义  定义：其实说白了，位运算就是直接对整数在内存中的二进制位进行操作 特点：位运算直接对内存数据进行操作，不需要转成十进制，速度很快  基本位运算符  and( &amp;amp; ) : 通常用于二进制位操作，如一个数&amp;amp;1的结果就是取二进制的最末尾，可以用来判断整数奇偶 or( | ) : 通常用于二进制定位上的无条件赋值，例如一个数or1的结果就是把二进制最末位强行变成1,若要变成0则减1就可以了，实际意义就是把这个数强行变成最接近的偶数 xor( ^ ) : 通常用于对二进制的特定一位进行取反，可以对两个数进行交换 not( ~ ) : 取反，注意的是整数类型有没有符号，如果是无符号整数，那么得到的值为其与上界的差 left shift( &amp;laquo; ) : 左移，在二进制数每添一位0就相当于乘2，因此每左移一位就相当于乘2；并且在常量的定义上，比如可以通过1 &amp;lt;&amp;lt; 16 来表示65535  对应与集合运算则是交集、并集、差集和补集，假设集合 A 是 {0, 3, 5, 6}，集合 B 是 {0, 2, 4, 6}，全集为 {0, 1, 2, 3, 4, 5, 6, 7}那么：
+ &amp;amp; 交集 Intersection {0, 6} | 并集 Union {0, 2, 3, 4, 5, 6} ^ 差集 Symmetric difference {2, 3, 4, 5} ~ 补集 Complement {1, 3, 5, 7}  位 运算符简单应用  经典题型：做数独时我们需要27个Hash表来统计每一行、每一列和每一个小九宫格里已经有哪些数了。此时，我们可以用27个小于2^9的整数进行记录。例如，一个只填了2和5的小九宫格就用数字18表示（二进制为000010010），而某一行的状态为511则表示这一行已经填满。需要改变状态时我们不需要把这个数转成二进制修改后再转回去，而是直接进行位操作。在搜索时，把状态表示成整数可以更好地进行判重等操作。</description>
+    </item>
+    
+  </channel>
+</rss>

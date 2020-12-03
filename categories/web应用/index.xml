@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>web应用 on 洛文小站</title>
+    <link>http://tuuna.top/categories/web%E5%BA%94%E7%94%A8/</link>
+    <description>Recent content in web应用 on 洛文小站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 23 Jul 2016 09:41:11 +0000</lastBuildDate><atom:link href="http://tuuna.top/categories/web%E5%BA%94%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu16.04ionic(jdksdkgradle)环境搭建完全攻略</title>
+      <link>http://tuuna.top/2016/07/23/ubuntu_ionic/</link>
+      <pubDate>Sat, 23 Jul 2016 09:41:11 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2016/07/23/ubuntu_ionic/</guid>
+      <description>在Ubuntu16.04当中搭建一个ionic环境还是按照官方教程的来，主要问题是首先要把JDK,SDK搭好，环境变量配好。本文中给的包的下载请不要直接用浏览器下载，很慢，尽量用wget 下载，重要的事说一遍！
+ JDK 下载地址：jdk下载
+ 访问到官网，就可以下载下来一个包文件了，对应着Ubuntu16.04就下载Linux ×64对应的tar.gz包  下载完成之后按以下命令
+$ tar -zxvf jdk-8u101-linux-x64.tar.gz #得到jdk1.8.0_101文件夹 $ cd /usr/lib $ sudo mkdir jvm #一般把jdk对应的文件放在/usr/lib/jvm下 $ cd - #回到解包的文件对应的文件夹 $ mv jdk1.8.0_101 /usr/lib/jvm/   接下来配置环境变量
+ 如果你没有安装zsh之类的终端插件，那么直接vim ~/.bashrc ，加入下面的三行，然后保存重新开一个终端即可(当然也可以修改/etc/profile,然后source)
+   export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_101 #最后这一项要对应你放到jvm下的包的文件名 export PATH=$JAVA_HOME/bin:$PATH export CLASSPATH=.:$JAVA_HOME/lib/dt,jar:$JAVA_HOME/lib/tools.jar  如果安装了zsh,也是同理，vim ~/.zshrc 最后加入上面三行即可
+  通过java -version验证  SDK 下载地址：sdk下载
+这里需要注意的是：你可以选择直接下载Android-Studio,因为Android-Studio中如果你没有安装SDK，那么会帮你下载相关的tool,包之类的，但是速度比较慢，所以推荐先配置SDK。
+ 下载sdk包之后，得到一个android-sdk-linux.tar.gz,然后执行以下命令  $ tar -zxvf android-sdk-linux.tar.gz #得到android-sdk-linux文件夹 $ mv android-sdk-linux /usr/local #把这个文件夹移动到/usr/local下  然后配置环境变量  同上vim ~/.</description>
+    </item>
+    
+  </channel>
+</rss>
