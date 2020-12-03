@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go on 洛文小站</title>
+    <link>https://tuuna.github.io/categories/go/</link>
+    <description>Recent content in Go on 洛文小站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 11 Jul 2018 08:13:45 +0000</lastBuildDate><atom:link href="https://tuuna.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang 实现 B-Tree与B&#43;Tree</title>
+      <link>https://tuuna.github.io/2018/07/11/golang_b&#43;_b_tree/</link>
+      <pubDate>Wed, 11 Jul 2018 08:13:45 +0000</pubDate>
+      
+      <guid>https://tuuna.github.io/2018/07/11/golang_b&#43;_b_tree/</guid>
+      <description>B-Tree与B+Tree基本概念  为什么在数据库中不使用时间复杂度为O(logN)的二叉查找树，是因为磁盘IO的问题，数据库索引是放在磁盘上的，数据量特别大时，索引也变得很大，不可能把所有的索引都放到内存当中，只能逐一加载每一个磁盘页。而在最坏情况下，磁盘IO次数对应着索引树的高度，所以为了减少磁盘IO次数，需要把树的高度减小。
+ B-Tree B-Tree性质 阶为M的B-树拥有以下的性质：
+ 树的根或者是一片树叶，或者其孩子数在2和M之间 除根以外，所有的非叶节点的孩子数在 ⌈M/2⌉和M之间 所有的叶节点都在相同的深度上 每个节点存放至少M/2 - 1(上取整)和至多M - 1 个关键字(至少2个关键字) 非叶节点的关键字个数=孩子指针个数 - 1 节点内关键字有序  B-Tree实现 查看github
+B+Tree B+树与B树的差别在于：
+ 非叶节点的孩子指针与关键字个数相同 所有关键字都在叶子节点的链表中出现(稠密索引)，并且链表中的关键字是有序的 为所有叶子节点增加一个链指针 关键字都出现在叶子节点 不可能在非叶子节点命中 非叶子节点相当于叶子节点的索引(稀疏索引)，叶子节点相当于是存储关键字的数据层  B+Tree实现 查看github</description>
+    </item>
+    
+  </channel>
+</rss>

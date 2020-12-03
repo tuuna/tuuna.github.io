@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PostgreSQL on 洛文小站</title>
+    <link>https://tuuna.github.io/tags/postgresql/</link>
+    <description>Recent content in PostgreSQL on 洛文小站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 29 Sep 2019 11:10:32 +0000</lastBuildDate><atom:link href="https://tuuna.github.io/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hbase &#43; PostgreSQL测试</title>
+      <link>https://tuuna.github.io/2019/09/29/hbase_postgresql_test/</link>
+      <pubDate>Sun, 29 Sep 2019 11:10:32 +0000</pubDate>
+      
+      <guid>https://tuuna.github.io/2019/09/29/hbase_postgresql_test/</guid>
+      <description>文章目录  Hbase + PostgreSQL测试  基本信息 测试方法  HBASE PG   测试图例    基本信息 Hbase与PG测试使用YCSB压力测试工具
+采用21w行数据+21w操作数来最大化模拟20G数据场景
+测试方法 HBASE   首先下载YCSB，解压
+  接下来创建测试数据库
+hbase shell命令打开shell命令行
+hbase(main):001:0&amp;gt; n_splits = 20 # HBase recommends (10 * number of regionservers) hbase(main):002:0&amp;gt; create &#39;usertable&#39;, &#39;cf&#39;, {SPLITS =&amp;gt; (1..n_splits).map {|i| &amp;quot;user#{1000+i*(9999-1000)/n_splits}&amp;quot;}}   把hbase的conf目录下的|$HBASE_HOME/conf/hbase-site.xml(比如我本机是/usr/local/hbase/conf/hbase-site.xml)复制到我们下载的YCSB中的hbase14下的conf文件夹中
+  接下来装载数据
+$ ./bin/ycsb load hbase14 -P workloads/workloada -p table=usertable -p columnfamily=cf -p recordcount=210000 -p operationcount=210000 -p measurementtype=hdrhistogram -p hdrhistogram.</description>
+    </item>
+    
+  </channel>
+</rss>

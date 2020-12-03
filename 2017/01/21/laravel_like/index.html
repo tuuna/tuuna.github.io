@@ -1,0 +1,69 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Laravel 中点赞功能实现 | 洛文小站</title><meta name=keywords content><meta name=description content="本文建立于没有用户登录的简单点赞功能，主要使用了Ajax,Redis
+ 配置   首先需要根据官网的指南下载好predis
+$ composer require predis/predis   然后在database.php中配置好redis
+'redis' => [   ‘client’ => ‘predis’,
+‘cluster’ => false,
+‘default’ => [ ‘host’ => env(‘REDIS_HOST’, ‘localhost’), ‘password’ => env(‘REDIS_PASSWORD’, null), ‘port’ => env(‘REDIS_PORT’, 6379), ‘database’ => 0, ],
+],
+**注意:** 如果系统用pecl下载了redis，那么上面配置中的client对应的值应该改成phpredis。笔主在本地环境下不加上client也是不会报错的，当然还是要看个人本地或者生产环境下的配置了。 - 最后要在对应的控制器下使用redis use Illuminate\Support\Facades\Redis;
+Redis的使用方式可自行查询手册 ### 点赞的基本原理以及实现思路 **原理：**在用户点赞之后会通过Ajax向后台发起请求，后台首先检测用户是否已经点赞(从Redis中取键值，点赞为1,未点赞为0)。返回对应的状态码给js。BTW，如果加入了用户登录之类的，那么在当前用户点赞之后生成一个cookie来直接判断用户是否已经点赞，就不需要后端再查询数据库，提高响应速度。 **实现思路：**在点赞页的控制器中把当前的点赞情况绑定到视图中，视图中通过js监控点赞按钮，如果点击那么就访问后端逻辑页面来进行逻辑处理。 class IndexController extends Controller { public function index() { $allClick = Redis::get(“click”);
+return view(‘index’,[‘click’ => $allClick]); }"><meta name=author content="赖杰"><link rel=canonical href=https://tuuna.github.io/2017/01/21/laravel_like/><link href=https://tuuna.github.io/assets/css/stylesheet.min.46b233709fd2c907e04a2d946c05f4e1d6edaf81b562cbfdaf6f11aeaa32248c.css integrity="sha256-RrIzcJ/SyQfgSi2UbAX04dbtr4G1Ysv9r28RrqoyJIw=" rel="preload stylesheet" as=style><link rel=icon href=https://tuuna.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://tuuna.github.io/favicon16x16.png><link rel=icon type=image/png sizes=32x32 href=https://tuuna.github.io/favicon32x32.png><link rel=apple-touch-icon href=https://tuuna.github.io/apple-touch-icon.png><link rel=mask-icon href=https://tuuna.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><meta name=generator content="Hugo 0.79.0"><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-123-45','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><meta property="og:title" content="Laravel 中点赞功能实现"><meta property="og:description" content="本文建立于没有用户登录的简单点赞功能，主要使用了Ajax,Redis
+ 配置   首先需要根据官网的指南下载好predis
+$ composer require predis/predis   然后在database.php中配置好redis
+'redis' => [   ‘client’ => ‘predis’,
+‘cluster’ => false,
+‘default’ => [ ‘host’ => env(‘REDIS_HOST’, ‘localhost’), ‘password’ => env(‘REDIS_PASSWORD’, null), ‘port’ => env(‘REDIS_PORT’, 6379), ‘database’ => 0, ],
+],
+**注意:** 如果系统用pecl下载了redis，那么上面配置中的client对应的值应该改成phpredis。笔主在本地环境下不加上client也是不会报错的，当然还是要看个人本地或者生产环境下的配置了。 - 最后要在对应的控制器下使用redis use Illuminate\Support\Facades\Redis;
+Redis的使用方式可自行查询手册 ### 点赞的基本原理以及实现思路 **原理：**在用户点赞之后会通过Ajax向后台发起请求，后台首先检测用户是否已经点赞(从Redis中取键值，点赞为1,未点赞为0)。返回对应的状态码给js。BTW，如果加入了用户登录之类的，那么在当前用户点赞之后生成一个cookie来直接判断用户是否已经点赞，就不需要后端再查询数据库，提高响应速度。 **实现思路：**在点赞页的控制器中把当前的点赞情况绑定到视图中，视图中通过js监控点赞按钮，如果点击那么就访问后端逻辑页面来进行逻辑处理。 class IndexController extends Controller { public function index() { $allClick = Redis::get(“click”);
+return view(‘index’,[‘click’ => $allClick]); }"><meta property="og:type" content="article"><meta property="og:url" content="https://tuuna.github.io/2017/01/21/laravel_like/"><meta property="article:published_time" content="2017-01-21T05:41:36+00:00"><meta property="article:modified_time" content="2017-01-21T05:41:36+00:00"><meta property="og:site_name" content="洛文小站"><meta name=twitter:card content="summary"><meta name=twitter:title content="Laravel 中点赞功能实现"><meta name=twitter:description content="本文建立于没有用户登录的简单点赞功能，主要使用了Ajax,Redis
+ 配置   首先需要根据官网的指南下载好predis
+$ composer require predis/predis   然后在database.php中配置好redis
+'redis' => [   ‘client’ => ‘predis’,
+‘cluster’ => false,
+‘default’ => [ ‘host’ => env(‘REDIS_HOST’, ‘localhost’), ‘password’ => env(‘REDIS_PASSWORD’, null), ‘port’ => env(‘REDIS_PORT’, 6379), ‘database’ => 0, ],
+],
+**注意:** 如果系统用pecl下载了redis，那么上面配置中的client对应的值应该改成phpredis。笔主在本地环境下不加上client也是不会报错的，当然还是要看个人本地或者生产环境下的配置了。 - 最后要在对应的控制器下使用redis use Illuminate\Support\Facades\Redis;
+Redis的使用方式可自行查询手册 ### 点赞的基本原理以及实现思路 **原理：**在用户点赞之后会通过Ajax向后台发起请求，后台首先检测用户是否已经点赞(从Redis中取键值，点赞为1,未点赞为0)。返回对应的状态码给js。BTW，如果加入了用户登录之类的，那么在当前用户点赞之后生成一个cookie来直接判断用户是否已经点赞，就不需要后端再查询数据库，提高响应速度。 **实现思路：**在点赞页的控制器中把当前的点赞情况绑定到视图中，视图中通过js监控点赞按钮，如果点击那么就访问后端逻辑页面来进行逻辑处理。 class IndexController extends Controller { public function index() { $allClick = Redis::get(“click”);
+return view(‘index’,[‘click’ => $allClick]); }"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Laravel 中点赞功能实现","name":"Laravel 中点赞功能实现","description":"本文建立于没有用户登录的简单点赞功能，主要使用了Ajax,Redis\n 配置   首先需要根据官网的指南下载好predis\n$ composer require predis/predis   然后在database.php中配置好redis\n\u0026#39;redis\u0026#39; =\u0026amp;gt; [   ‘client’ =\u0026amp;gt; ‘predis’,\n‘cluster’ =\u0026amp;gt; …","keywords":[],"articleBody":" 本文建立于没有用户登录的简单点赞功能，主要使用了Ajax,Redis\n 配置   首先需要根据官网的指南下载好predis\n$ composer require predis/predis   然后在database.php中配置好redis\n'redis' = [   ‘client’ = ‘predis’,\n‘cluster’ = false,\n‘default’ = [ ‘host’ = env(‘REDIS_HOST’, ‘localhost’), ‘password’ = env(‘REDIS_PASSWORD’, null), ‘port’ = env(‘REDIS_PORT’, 6379), ‘database’ = 0, ],\n],\n**注意:** 如果系统用pecl下载了redis，那么上面配置中的client对应的值应该改成phpredis。笔主在本地环境下不加上client也是不会报错的，当然还是要看个人本地或者生产环境下的配置了。 - 最后要在对应的控制器下使用redis use Illuminate\\Support\\Facades\\Redis;\nRedis的使用方式可自行查询手册 ### 点赞的基本原理以及实现思路 **原理：**在用户点赞之后会通过Ajax向后台发起请求，后台首先检测用户是否已经点赞(从Redis中取键值，点赞为1,未点赞为0)。返回对应的状态码给js。BTW，如果加入了用户登录之类的，那么在当前用户点赞之后生成一个cookie来直接判断用户是否已经点赞，就不需要后端再查询数据库，提高响应速度。 **实现思路：**在点赞页的控制器中把当前的点赞情况绑定到视图中，视图中通过js监控点赞按钮，如果点击那么就访问后端逻辑页面来进行逻辑处理。 class IndexController extends Controller { public function index() { $allClick = Redis::get(“click”);\nreturn view(‘index’,[‘click’ = $allClick]); }\npublic function isLike() { $click = Redis::get(“click”); if($click) { Redis::set(“click”,0); return [‘status’ = 0,’msg’ = ‘取消点赞’,’count’ = 0]; } else { Redis::set(“click”,1); return [‘status’ = 1,’msg’ = ‘点赞成功’,’count’ = 1]; } }\n ```\n这里要注意的是如果jQuery代码中使用$.post可能会出现[object%object]这种错误，比较重要。\n","wordCount":"99","inLanguage":"en","datePublished":"2017-01-21T05:41:36Z","dateModified":"2017-01-21T05:41:36Z","author":{"@type":"Person","name":"赖杰"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://tuuna.github.io/2017/01/21/laravel_like/"},"publisher":{"@type":"Organization","name":"洛文小站","logo":{"@type":"ImageObject","url":"https://tuuna.github.io/favicon.ico"}}}</script></head><body class=single id=top><script>if(localStorage.getItem("pref-theme")==="dark"){document.body.classList.add('dark');}else if(localStorage.getItem("pref-theme")==="light"){document.body.classList.remove('dark')}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.body.classList.add('dark');}</script><noscript><style type=text/css>.theme-toggle,.top-link{display:none}</style></noscript><header class=header><nav class=nav><div class=logo><a href=https://tuuna.github.io accesskey=h><img src=/cloud.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches><span class=theme-toggle><a id=theme-toggle accesskey=t><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></a></span><span class=lang-switch><span>|</span><ul><li><a href=https://tuuna.github.io/about/ title=About aria-label=About>About</a></li></ul></span></span></div><ul class=menu id=menu onscroll=menu_on_scroll()><li><a href=https://tuuna.github.io/archives/><span>Archive</span></a></li><li><a href=https://tuuna.github.io/tags/><span>Tag</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class=post-title>Laravel 中点赞功能实现</h1><div class=post-meta>January 21, 2017&nbsp;·&nbsp;1 min&nbsp;·&nbsp;赖杰</div></header><div class=post-content><blockquote><p>本文建立于没有用户登录的简单点赞功能，主要使用了Ajax,Redis</p></blockquote><h3 id=配置>配置<a hidden class=anchor aria-hidden=true href=#配置>#</a></h3><ul><li><p>首先需要根据官网的指南下载好predis</p><pre><code>$ composer require predis/predis
+</code></pre></li><li><p>然后在database.php中配置好redis</p><pre><code>'redis' =&gt; [
+</code></pre></li></ul><p>‘client’ => ‘predis’,</p><p>‘cluster’ => false,</p><p>‘default’ => [
+‘host’ => env(‘REDIS_HOST’, ‘localhost’),
+‘password’ => env(‘REDIS_PASSWORD’, null),
+‘port’ => env(‘REDIS_PORT’, 6379),
+‘database’ => 0,
+],</p><p>],</p><pre><code>**注意:** 如果系统用pecl下载了redis，那么上面配置中的client对应的值应该改成phpredis。笔主在本地环境下不加上client也是不会报错的，当然还是要看个人本地或者生产环境下的配置了。
+
+- 最后要在对应的控制器下使用redis
+</code></pre><p>use Illuminate\Support\Facades\Redis;</p><pre><code>Redis的使用方式可自行查询手册
+
+### 点赞的基本原理以及实现思路
+
+**原理：**在用户点赞之后会通过Ajax向后台发起请求，后台首先检测用户是否已经点赞(从Redis中取键值，点赞为1,未点赞为0)。返回对应的状态码给js。BTW，如果加入了用户登录之类的，那么在当前用户点赞之后生成一个cookie来直接判断用户是否已经点赞，就不需要后端再查询数据库，提高响应速度。
+
+**实现思路：**在点赞页的控制器中把当前的点赞情况绑定到视图中，视图中通过js监控点赞按钮，如果点击那么就访问后端逻辑页面来进行逻辑处理。
+</code></pre><p>class IndexController extends Controller
+{
+public function index()
+{
+$allClick = Redis::get(“click”);</p><p>return view(‘index’,[‘click’ => $allClick]);
+}</p><p>public function isLike()
+{
+$click = Redis::get(“click”);
+if($click) {
+Redis::set(“click”,0);
+return [‘status’ => 0,’msg’ => ‘取消点赞’,’count’ => 0];
+} else {
+Redis::set(“click”,1);
+return [‘status’ => 1,’msg’ => ‘点赞成功’,’count’ => 1];
+}
+}</p><pre><code>
+</code></pre><p>```</p><p>这里要注意的是如果jQuery代码中使用<code>$.post</code>可能会出现<code>[object%object]</code>这种错误，比较重要。</p></div><footer class=post-footer><div style="padding:10px 0;margin:20px auto;width:100%;font-size:16px;text-align:center"><button id=rewardButton disable=enable onclick="var qr=document.getElementById('QR');if(qr.style.display==='none'){qr.style.display='block';}else{qr.style.display='none'}">
+<span>打赏</span></button><div id=QR style=display:none><div id=wechat style=display:inline-block><a class=fancybox rel=group><img id=wechat_qr src=/wechat.jpeg alt="WeChat Pay"></a><p>微信打赏</p></div><div id=alipay style=display:inline-block><a class=fancybox rel=group><img id=alipay_qr src=/alipay.jpeg alt=Alipay></a><p>支付宝打赏</p></div></div></div></footer></article></main><footer class=footer><span>&copy; 2020 <a href=https://tuuna.github.io>洛文小站</a></span>
+<span>&#183;</span>
+<span>备案号 <a href=http://www.beian.miit.gov.cn/ rel="noopener noreferrer">蜀ICP备15022210号-3</a></span>
+<span>&#183;</span>
+<span>Theme <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top" accesskey=g><button class=top-link id=top-link type=button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6"><path d="M12 6H0l6-6z"/></svg></button></a>
+<script>window.onload=function(){if(localStorage.getItem("menu-scroll-position")){document.getElementById('menu').scrollLeft=localStorage.getItem("menu-scroll-position");}}
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{anchor.addEventListener("click",function(e){e.preventDefault();var id=this.getAttribute("href").substr(1);document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({behavior:"smooth"});});});var mybutton=document.getElementById("top-link");window.onscroll=function(){if(document.body.scrollTop>800||document.documentElement.scrollTop>800){mybutton.style.visibility="visible";mybutton.style.opacity="1";}else{mybutton.style.visibility="hidden";mybutton.style.opacity="0";}};function menu_on_scroll(){localStorage.setItem("menu-scroll-position",document.getElementById('menu').scrollLeft);}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{if(document.body.className.includes("dark")){document.body.classList.remove('dark');localStorage.setItem("pref-theme",'light');}else{document.body.classList.add('dark');localStorage.setItem("pref-theme",'dark');}})</script></body></html>

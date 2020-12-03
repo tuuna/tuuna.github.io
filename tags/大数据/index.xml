@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>大数据 on 洛文小站</title>
+    <link>https://tuuna.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</link>
+    <description>Recent content in 大数据 on 洛文小站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 26 Sep 2019 08:52:30 +0000</lastBuildDate><atom:link href="https://tuuna.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Flume&#43;Kafka&#43;Spark环境搭建</title>
+      <link>https://tuuna.github.io/2019/09/26/flume_kafka_spark_building/</link>
+      <pubDate>Thu, 26 Sep 2019 08:52:30 +0000</pubDate>
+      
+      <guid>https://tuuna.github.io/2019/09/26/flume_kafka_spark_building/</guid>
+      <description>文章目录    单机版环境搭建及相关DEMO  Flume  Flume基本介绍与架构 Flume安装部署 案例实操   Kafka  环境搭建 Kafka控制台的一些命令操作 Java API控制Kafka Flume+Kafka配合   Spark  Spark 简介 Spark环境搭建 在Spark Shell 中运行代码 Scala编写wordCount 在Spark-Shell中执行词频统计 词频统计 编写独立应用程序执行词频统计   Flume_Kafka_SparkStreaming实现词频统计  准备工作     分布式环境搭建及相关DEMO  Flume Kafka Spark       本文档主要讲述了flume+kafka+spark的单机分布式搭建，由浅入深，介绍了常见大数据流处理流程
+ 单机版环境搭建及相关DEMO Flume Flume基本介绍与架构 Flume是Cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统。Flume基于流式架构，灵活简单。
+Flume出生日记
+有很多的服务和系统
+ network devices operating system web servers Applications  这些系统都会产生很多的日志，那么把这些日志拿出来，用来分析时非常有用的。</description>
+    </item>
+    
+  </channel>
+</rss>
