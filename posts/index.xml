@@ -5,16 +5,7 @@
     <link>http://tuuna.top/posts/</link>
     <description>Recent content in Posts on 洛文小站</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 02 Dec 2020 20:16:50 +0800</lastBuildDate><atom:link href="http://tuuna.top/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Test</title>
-      <link>http://tuuna.top/posts/test/test/</link>
-      <pubDate>Wed, 02 Dec 2020 20:16:50 +0800</pubDate>
-      
-      <guid>http://tuuna.top/posts/test/test/</guid>
-      <description>测试一下</description>
-    </item>
-    
+    <lastBuildDate>Tue, 21 Apr 2020 03:55:57 +0000</lastBuildDate><atom:link href="http://tuuna.top/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Seata分布式事务框架的流程解析</title>
       <link>http://tuuna.top/2020/04/21/seata/</link>
@@ -379,6 +370,15 @@ Ubuntu Tweak 这是一个专业的设置各种东西的软件,包括主题光标
 浏览器 终于我们把开机桌面主题等等都设置得满意了，我们发现好像ubuntu更加可爱，那么我们日常经常用到的还有浏览器辣！
 火狐谷歌神器级插件stylish 这款插件可以根据你访问的特定的一些页面改变其css等，让你的界面更加的好看，比如google就可以设置上很多很赞的背景 get rid of 那些呆板的白色就从这个插件开始。
 the end</description>
+    </item>
+    
+    <item>
+      <title>2020年度总结</title>
+      <link>http://tuuna.top/2019/12/31/2019_summary/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2019/12/31/2019_summary/</guid>
+      <description>2020年度总结</description>
     </item>
     
   </channel>

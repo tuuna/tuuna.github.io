@@ -108,5 +108,14 @@ delta∗(days/dayGranularity+1)∗dayWeightdeltadaysdayGranularity1dayWeight
   </description>
     </item>
     
+    <item>
+      <title>2020年度总结</title>
+      <link>http://tuuna.top/2019/12/31/2019_summary/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://tuuna.top/2019/12/31/2019_summary/</guid>
+      <description>2020年度总结</description>
+    </item>
+    
   </channel>
 </rss>

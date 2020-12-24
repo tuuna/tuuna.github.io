@@ -3,31 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://tuuna.top/posts/</loc>
-    <lastmod>2020-12-02T20:16:50+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://tuuna.top/posts/test/test/</loc>
-    <lastmod>2020-12-02T20:16:50+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://tuuna.top/</loc>
-    <lastmod>2020-12-02T20:16:50+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="about"
-                href="http://tuuna.top/about/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://tuuna.top/"
-                />
-  </url>
-  
-  <url>
     <loc>http://tuuna.top/categories/</loc>
     <lastmod>2020-04-21T03:55:57+00:00</lastmod>
     <xhtml:link
@@ -43,6 +18,11 @@
   </url>
   
   <url>
+    <loc>http://tuuna.top/posts/</loc>
+    <lastmod>2020-04-21T03:55:57+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://tuuna.top/2020/04/21/seata/</loc>
     <lastmod>2020-04-21T03:55:57+00:00</lastmod>
   </url>
@@ -50,6 +30,21 @@
   <url>
     <loc>http://tuuna.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2020-04-21T03:55:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://tuuna.top/</loc>
+    <lastmod>2020-04-21T03:55:57+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="about"
+                href="http://tuuna.top/about/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://tuuna.top/"
+                />
   </url>
   
   <url>
@@ -255,6 +250,10 @@
   <url>
     <loc>http://tuuna.top/2016/03/13/ubuntu_beautify/</loc>
     <lastmod>2016-03-13T11:29:45+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://tuuna.top/2019/12/31/2019_summary/</loc>
   </url>
   
   <url>
